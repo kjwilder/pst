@@ -1,7 +1,3 @@
-
-// ___________________________________________________________________________
-// Includes and defines
-
 #include <cmath>
 #include <fstream>
 #include <iomanip>
@@ -11,12 +7,15 @@
 
 #include "pst.h"
 
-const std::string kFontsPathName = "/Users/ken/github/pst/fonts";
-
-// ___________________________________________________________________________
-
 int main(int argc, char** argv)
 {
+  std::string exe_path = argv[0];
+  auto pos = exe_path.rfind('/');
+  std::string exe_dir = pos != std::string::npos ? exe_path.substr(0, pos) : ".";
+  std::string fonts_dir = exe_dir + "/fonts";
+  if (!std::ifstream(fonts_dir + "/Helvetica-Narrow.nfm"))
+    fonts_dir = "fonts";
+
   const char* filename = nullptr;
   std::string fontname = "Helvetica-Narrow";
   double fontsize = 6.0;
@@ -48,7 +47,7 @@ int main(int argc, char** argv)
   }
 
   font mainfont;
-  if (!mainfont.load(fontname, kFontsPathName)) {
+  if (!mainfont.load(fontname, fonts_dir)) {
     std::cout << "Unable to load font " << fontname << "\n";
     return 2;
   }
