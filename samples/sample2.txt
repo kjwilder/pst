@@ -1,3 +1,0 @@
-BTop Node A
-LLeft Child A11
-LDropped it on the floor
